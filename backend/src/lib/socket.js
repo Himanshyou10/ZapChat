@@ -1,29 +1,32 @@
 import { Server } from "socket.io";
 
 const userSocketMap = {}; // {userId: socketId}
+let ioInstance = null;
 
 export function getReceiverSocketId(userId) {
   return userSocketMap[userId];
 }
 
 export function initSocket(server) {
-  const io = new Server(server, {
+  ioInstance = new Server(server, {
     cors: {
       origin: ["http://localhost:5173"],
       credentials: true,
     },
   });
 
-  io.on("connection", (socket) => {
+  ioInstance.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
     if (userId) userSocketMap[userId] = socket.id;
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    ioInstance.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
       delete userSocketMap[userId];
-      io.emit("getOnlineUsers", Object.keys(userSocketMap));
+      ioInstance.emit("getOnlineUsers", Object.keys(userSocketMap));
     });
   });
+}
 
-  return io;
+export function getIO() {
+  return ioInstance;
 }
