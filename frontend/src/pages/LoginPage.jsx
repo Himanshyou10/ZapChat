@@ -40,7 +40,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium text-teal-300">Email</span>
+                <span className="label-text font-medium">Email</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -58,7 +58,7 @@ const LoginPage = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium text-teal-300">Password</span>
+                <span className="label-text font-medium">Password</span>
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

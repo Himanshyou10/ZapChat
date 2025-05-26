@@ -9,15 +9,14 @@ const Sidebar = () => {
 
   const { onlineUsers } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
-  
-
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
 
-  const filteredUsers = showOnlineOnly ? users.filter(user => onlineUsers.includes(user._id)): users;
-
+  const filteredUsers = showOnlineOnly
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -43,10 +42,8 @@ const Sidebar = () => {
         </div>
       </div>
 
-
-
       <div className="overflow-y-auto w-full py-3">
-       {filteredUsers.map((user) => (
+        {filteredUsers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
@@ -80,12 +77,9 @@ const Sidebar = () => {
           </button>
         ))}
 
-       
         {filteredUsers.length === 0 && (
           <div className="text-center text-zinc-500 py-4">No online users</div>
         )}
-      
-        
       </div>
     </aside>
   );
